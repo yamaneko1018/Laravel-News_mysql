@@ -22,13 +22,13 @@
     // titleとbodyがPOSTメソッドで送信されたとき
     $comment = $_POST['comment'];
 
-    $review = new Review();  //Articleクラスのインスタンスを作成。値は何も入っていない状態。
-    $review->setBody($comment);  //タイトルをセット
+    $review = new Review();  //Reviewクラスのインスタンスを作成。値は何も入っていない状態。
+    $review->setBody($comment);  //コメントをセット
     $review->save(); //saveメソッドで保存
 
     header('Location: view.php');
   } else if(!empty($_POST)){
-    // POSTメソッドで送信されたが、titleかbodyが足りないとき
+    // POSTメソッドで送信されたが、commentが足りないとき
     // 存在するほうは変数へ、ない場合空文字にしてフォームのvalueに設定する
     if (!empty($_POST['comment'])){
       $comment = $_POST['comment'];
