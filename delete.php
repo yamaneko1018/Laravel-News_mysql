@@ -1,14 +1,15 @@
 <?php
   include 'lib/secure.php';
   include 'lib/connect.php';
-  include 'lib/queryArticle.php';
-  include 'lib/article.php';
+  include 'lib/queryReview.php';
+  include 'lib/review.php';
 
-  if (!empty($_GET['id'])){    //GETメソッドでidがあればQueryArticleクラスのインスタンスを作成し、Articleをテーブルからidをキーに検索
-    $queryArticle = new QueryArticle();
-    $article = $queryArticle->find($_GET['id']);
-    if ($article){
-      $article->delete();
+  if (!empty($_GET['id'])){    //GETメソッドでidがあればQueryReviewクラスのインスタンスを作成し、Reviewをテーブルからidをキーに検索
+    $queryReview = new QueryReview();
+    $review = $queryReview->find($_GET['id']);
+    if ($review){
+      $review->delete();
     }
   }
-  header('Location: backend.php');
+  header('Location: view.php');
+  ?>

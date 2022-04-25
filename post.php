@@ -12,23 +12,22 @@
     // titleとbodyがPOSTメソッドで送信されたとき
     $title = $_POST['title'];
     $body = $_POST['body'];
+    
 
     $article = new Article();  //Articleクラスのインスタンスを作成。値は何も入っていない状態。
     $article->setTitle($title);  //タイトルをセット
     $article->setBody($body);  //本文をセット
     $article->save(); //saveメソッドで保存
 
-//    $db = new connect();
-//    $sql = "INSERT INTO articles (title, body, created_at, updated_at)
-//            VALUES (:title, :body, NOW(), NOW())";
-//    $result = $db->query($sql, array(':title' => $title, ':body' => $body));
     header('Location: post.php');
-  } else if(!empty($_POST)){
+  } elseif(!empty($_POST)){
     // POSTメソッドで送信されたが、titleかbodyが足りないとき
     // 存在するほうは変数へ、ない場合空文字にしてフォームのvalueに設定する
     if (!empty($_POST['title'])){
       $title = $_POST['title'];
-    } else {
+      if(30 <= mb_strlen($title));
+        $title_alert = "30字以内で入力してください。";
+      }else {
       $title_alert = "タイトルを入力してください。";
     }
 
@@ -48,15 +47,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Laravel News</title>
-    <link href="post.css" rel="stylesheet" type="text/css" media="all">
-
   </head>
   <body>
   <h1 class="theme"><a href="http://localhost:8080/blog/post.php" style="text-decoration:none;">Laravel News</a></h1>
 
   <h2 class="share">さぁ、最新のニュースをシェアしましょう</h2>
 
-<form action="post.php" method="post">
+<form action="post.php" method="post" onSubmit="return checkSubmit()">
   <div>
     <label for="title">タイトル</label>
     <?php echo !empty($title_alert)? '<div class="alert alert-danger">'.$title_alert.'</div>': '' ?>
@@ -69,6 +66,11 @@
     <button type="submit" class="btn-submit">投稿</button>
   </div>
 </form>
+<script type="text/javascript">
+  function checkSubmit() {
+  return confirm("投稿してよろしいですか？");
+  }
+</script>
 
 <main>
 <?php if ($articles): ?>
@@ -77,7 +79,17 @@
         <h2>
             <?php echo $article->getTitle() ?>
         </h2>
-        <?php echo nl2br($article->getBody()) ?>
+        <?php
+        $limit = 60;
+        $text = $article->getBody();
+        ?>
+        <?php if(mb_strlen($text) > $limit): ?>
+          <?php $part_text = mb_substr($text,0,$limit); ?>
+            <p><?=$part_text. '・・・';?></p>
+          <?php else: ?>
+            <p><?=$text?></p>
+        <?php endif; ?>
+
         <a href="view.php?id=<?php echo $article->getId() ?>">
             <?php echo "記事本文・コメントを見る" ?>
         </a>

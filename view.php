@@ -19,7 +19,7 @@
 
 
   if (!empty($_POST['comment'])){
-    // titleとbodyがPOSTメソッドで送信されたとき
+    // commentがPOSTメソッドで送信されたとき
     $comment = $_POST['comment'];
 
     $review = new Review();  //Reviewクラスのインスタンスを作成。値は何も入っていない状態。
@@ -33,12 +33,11 @@
     if (!empty($_POST['comment'])){
       $comment = $_POST['comment'];
     } else {
-      $body_alert = "タイトルを入力してください。";
+      $body_alert = "コメントを入力してください。";
     }
   }
   $queryReview = new QueryReview();
   $reviews = $queryReview->findAll();
-
   ?>
 
 
@@ -67,6 +66,23 @@
         <button type="submit" class="btn-submit">コメントする</button>
       </div>
       </form>
-    </section>  
+    </section>
+    <section>
+    <?php if ($reviews): ?>
+  <?php foreach ($reviews as $review): ?>
+      <article>
+        <?php echo nl2br($review->getBody()) ?>
+        <a href="delete.php?id=<?php echo $review->getId() ?>">削除</a>
+      </article>
+  <?php endforeach ?>
+<?php else: ?>
+      <div>
+        <p>コメントはありません。</p>
+      </div>
+<?php endif ?>
+
+
+
+    </section>
 </body>
 </html>
