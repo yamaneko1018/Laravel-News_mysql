@@ -32,6 +32,8 @@
     // 存在するほうは変数へ、ない場合空文字にしてフォームのvalueに設定する
     if (!empty($_POST['comment'])){
       $comment = $_POST['comment'];
+      if(50 <= mb_strlen($title));
+      $body_alert = "50字以内で入力してください。";
     } else {
       $body_alert = "コメントを入力してください。";
     }
@@ -52,6 +54,7 @@
   <h1 class="theme"><a href="http://localhost:8080/blog/post.php" style="text-decoration:none;">Laravel News</a></h1>
   <main>
     <?php if ($article): ?>
+      <?php var_dump($_POST) ?>
       <article class="blog-post">
         <h2 class="blog-post-title"><?php echo $article->getTitle() ?></h2>
         <?php echo nl2br($article->getBody()) ?>
