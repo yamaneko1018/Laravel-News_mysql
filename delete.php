@@ -7,9 +7,10 @@
   if (!empty($_GET['id'])){    //GETメソッドでidがあればQueryReviewクラスのインスタンスを作成し、Reviewをテーブルからidをキーに検索
     $queryReview = new QueryReview();
     $review = $queryReview->find($_GET['id']);
+    $article_id = $review->getArticleId();
     if ($review){
       $review->delete();
     }
   }
-  header('Location: view.php');
+  header('Location: view.php?id='.$article_id);
   ?>

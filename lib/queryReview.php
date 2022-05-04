@@ -16,9 +16,11 @@ class QueryReview extends connect{  //connectクラスを親として継承
     } else {
       // IDがなければ新規作成
       $body = $this->review->getBody();
-      $stmt = $this->dbh->prepare("INSERT INTO reviews (body, created_at, updated_at)
-                VALUES (:body, NOW(), NOW())");
+      $article_id = $this->review->getArticleId();
+      $stmt = $this->dbh->prepare("INSERT INTO reviews (body, article_id, created_at, updated_at)
+                VALUES (:body, :article_id, NOW(), NOW())");
       $stmt->bindParam(':body', $body, PDO::PARAM_STR);  //第１引数のプレースホルダーに、第二引数の変数、第３引数のデータ型指定（文字列）。第二引数は変数でなければいけない
+      $stmt->bindParam(':article_id', $article_id, PDO::PARAM_INT);  //第１引数のプレースホルダーに、第二引数の変数、第３引数のデータ型指定（文字列）。第二引数は変数でなければいけない
       $stmt->execute();
 
     }   
@@ -43,6 +45,7 @@ class QueryReview extends connect{  //connectクラスを親として継承
       $review = new Review();
       $review->setId($result['id']);
       $review->setBody($result['body']);
+      $review->setArticleId($result['article_id']);
       $review->setCreatedAt($result['created_at']);
       $review->setUpdatedAt($result['updated_at']);
     }
@@ -65,4 +68,21 @@ class QueryReview extends connect{  //connectクラスを親として継承
     }
     return $reviews;               //findAll()メソッドの戻り値はReviewがたくさん入った配列$reviewsになる
   }
+
+  public function where($article_id){  
+    $stmt = $this->dbh->prepare("SELECT * FROM reviews WHERE is_delete=0 and article_id=$article_id ORDER BY created_at DESC");  //SQL
+    $stmt->execute();                                       //SQL実行
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);           //結果セットを全て配列として受け取る
+    $reviews = array();                                    //戻り値$reviewはarray()とすることで空の配列を作成
+    foreach ($results as $result){                          //結果セット（配列）をReviewクラスのインスタンスにして配列にする
+      $review = new Review();
+      $review->setId($result['id']);
+      $review->setBody($result['body']);
+      $review->setCreatedAt($result['created_at']);
+      $review->setUpdatedAt($result['updated_at']);
+      $reviews[] = $review;
+    }
+    return $reviews;               //findAll()メソッドの戻り値はReviewがたくさん入った配列$reviewsになる
+  }
+
 }

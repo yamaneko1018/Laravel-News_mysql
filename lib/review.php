@@ -4,6 +4,7 @@ class Review{
   private $title;
   private $body;
   private $category_id;
+  private $article_id;
   private $created_at;
   private $updated_at;
 
@@ -26,6 +27,10 @@ class Review{
 
   public function getBody(){
     return $this->body;
+  }
+
+  public function getArticleId(){
+    return $this->article_id;
   }
 
   public function getCategoryId(){
@@ -52,6 +57,11 @@ class Review{
   public function setCategoryId($category_id){
     $this->category_id = $category_id;
   }
+
+  public function setArticleId($article_id){
+    $this->article_id = $article_id;
+  }
+
 
   public function setCreatedAt($created_at){
     $this->created_at = $created_at;

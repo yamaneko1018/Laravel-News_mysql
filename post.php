@@ -12,22 +12,27 @@
     // titleとbodyがPOSTメソッドで送信されたとき
     $title = $_POST['title'];
     $body = $_POST['body'];
-    
 
-    $article = new Article();  //Articleクラスのインスタンスを作成。値は何も入っていない状態。
-    $article->setTitle($title);  //タイトルをセット
-    $article->setBody($body);  //本文をセット
-    $article->save(); //saveメソッドで保存
+    if(30 <= mb_strlen($title)){
+      $title_alert = "30字以内で入力してください。";
+    }else{
+      $article = new Article();  //Articleクラスのインスタンスを作成。値は何も入っていない状態。
+      $article->setTitle($title);  //タイトルをセット
+      $article->setBody($body);  //本文をセット
+      $article->save(); //saveメソッドで保存
+      header('Location: post.php');
+    }
 
-    header('Location: post.php');
+
+    //$article = new Article();  //Articleクラスのインスタンスを作成。値は何も入っていない状態。
+    //$article->setTitle($title);  //タイトルをセット
+    //$article->setBody($body);  //本文をセット
+    //$article->save(); //saveメソッドで保存
+
   } elseif(!empty($_POST)){
     // POSTメソッドで送信されたが、titleかbodyが足りないとき
     // 存在するほうは変数へ、ない場合空文字にしてフォームのvalueに設定する
-    if (!empty($_POST['title'])){
-      $title = $_POST['title'];
-      if(30 <= mb_strlen($title));
-        $title_alert = "30字以内で入力してください。";
-      }else {
+    if (empty($_POST['title'])){
       $title_alert = "タイトルを入力してください。";
     }
 
