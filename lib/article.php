@@ -1,9 +1,8 @@
 <?php
 class Article{
-  private $id; //articleテーブルと同じパラメータを持つ
+  private $id; //articleテーブルのカラムと同じパラメータを持つ
   private $title;
   private $body;
-  private $category_id;
   private $created_at;
   private $updated_at;
 
@@ -31,10 +30,6 @@ class Article{
     return $this->body;
   }
 
-  public function getCategoryId(){
-    return $this->category_id;
-  }
-
   public function getCreatedAt(){
     return $this->created_at;
   }
@@ -53,10 +48,6 @@ class Article{
 
   public function setBody($body){
     $this->body = $body;
-  }
-
-  public function setCategoryId($category_id){
-    $this->category_id = $category_id;
   }
 
   public function setCreatedAt($created_at){

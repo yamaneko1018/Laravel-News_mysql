@@ -17,7 +17,7 @@
     $id = intval($_POST["articleId"]);
 
     $queryArticle = new QueryArticle();
-    $article = $queryArticle->find($id);  //指定記事IDの記事を取得
+    $article = $queryArticle->find($id);  
 
     //header('Location: view.php?id='.$_POST["articleId"]);
     //$article = null;
@@ -36,7 +36,6 @@
       $review->setBody($comment);  //コメントをセット
       $review->setArticleId($_POST["articleId"]);
       $review->save(); //saveメソッドで保存
-      var_dump($comment);
 
       //header('Location: view.php?id='.$_POST["articleId"]);
     }
@@ -79,7 +78,6 @@
     <section>
       <form action="view.php" method="post">
       <?php echo !empty($body_alert)? '<div class="alert alert-danger">'.$body_alert.'</div>': '' ?>
-      <!-- $bodyいらないかも -->
       <textarea name="comment" rows="10"><?php echo $body; ?></textarea>  </div> 
       <div>
         <button type="submit" class="btn-submit">コメントする</button>

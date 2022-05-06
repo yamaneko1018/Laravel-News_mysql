@@ -24,11 +24,6 @@
     }
 
 
-    //$article = new Article();  //Articleクラスのインスタンスを作成。値は何も入っていない状態。
-    //$article->setTitle($title);  //タイトルをセット
-    //$article->setBody($body);  //本文をセット
-    //$article->save(); //saveメソッドで保存
-
   } elseif(!empty($_POST)){
     // POSTメソッドで送信されたが、titleかbodyが足りないとき
     // 存在するほうは変数へ、ない場合空文字にしてフォームのvalueに設定する

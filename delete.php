@@ -1,5 +1,4 @@
 <?php
-  include 'lib/secure.php';
   include 'lib/connect.php';
   include 'lib/queryReview.php';
   include 'lib/review.php';

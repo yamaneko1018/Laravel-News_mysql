@@ -82,7 +82,7 @@ class QueryReview extends connect{  //connectクラスを親として継承
       $review->setUpdatedAt($result['updated_at']);
       $reviews[] = $review;
     }
-    return $reviews;               //findAll()メソッドの戻り値はReviewがたくさん入った配列$reviewsになる
+    return $reviews;               
   }
 
 }

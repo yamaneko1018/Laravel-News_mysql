@@ -6,7 +6,7 @@ class connect{
   const USER = "user";
   const PASS = "pass";
 
-  //プロパティ。protectedはそのクラス自身と継承したクラスで参照することができる。
+  //プロパティ。クラス自身と継承したクラスで参照するためprotected
   //Data Base Handleの略。DBに接続したのちそのDBを操作するための情報を代入。
   //操作できる状態、車でいうハンドルを入れておく。
   protected $dbh;   

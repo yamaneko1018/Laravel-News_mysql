@@ -3,7 +3,6 @@ class Review{
   private $id; //Reviewテーブルと同じパラメータを持つ
   private $title;
   private $body;
-  private $category_id;
   private $article_id;
   private $created_at;
   private $updated_at;
@@ -33,10 +32,6 @@ class Review{
     return $this->article_id;
   }
 
-  public function getCategoryId(){
-    return $this->category_id;
-  }
-
   public function getCreatedAt(){
     return $this->created_at;
   }
@@ -52,10 +47,6 @@ class Review{
 
   public function setBody($body){
     $this->body = $body;
-  }
-
-  public function setCategoryId($category_id){
-    $this->category_id = $category_id;
   }
 
   public function setArticleId($article_id){
